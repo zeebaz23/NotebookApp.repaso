@@ -106,7 +106,7 @@ def test_notebook_class_has_notes_attribute(empty_notebook):
 @pytest.mark.xfail(not class_notebook_defined, reason="Notebook class not defined")
 @pytest.mark.parametrize(
     "method_name, expected_return_type, args",
-    [("add_note", int, ("note 1", "note 1 text", Note.HIGH)),
+    [("add_note", int, ("note 1", "note 1 text", "HIGH")),
      ("important_notes", list, ()),
      ("tags_note_count", dict, ())]
 )
@@ -120,7 +120,7 @@ def test_notebook_class_has_method(empty_notebook, method_name, expected_return_
 @pytest.mark.xfail(not class_notebook_defined, reason="Notebook class not defined")
 def test_notebook_class_add_note(empty_notebook):
     assert empty_notebook.notes == {}
-    note_code = empty_notebook.add_note("note 1", "note 1 text", Note.HIGH)
+    note_code = empty_notebook.add_note("note 1", "note 1 text", "HIGH")
     assert note_code == 1
     assert len(empty_notebook.notes) == 1
     note = empty_notebook.notes[note_code]
@@ -133,7 +133,7 @@ def test_notebook_class_add_note(empty_notebook):
 def test_notebook_class_important_notes(notebook_with_notes):
     important_notes = notebook_with_notes.important_notes()
     assert len(important_notes) == 2
-    assert all(note.importance in [Note.HIGH, Note.MEDIUM] for note in important_notes)
+    assert all(note.importance in ["HIGH", "MEDIUM"] for note in important_notes)
 
 
 @pytest.mark.xfail(not class_notebook_defined, reason="Notebook class not defined")
